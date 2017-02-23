@@ -1,14 +1,15 @@
 ﻿using CharacterBuilder.Foundation;
-using CharacterBuilder.Tags.Contract;
+using CharacterBuilder.Data.Contract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CharacterBuilder.Tags
+namespace CharacterBuilder.Data
 {
-    class Bonus<TValue> : NotificationObject, IBonus<TValue>
+    class Bonus<TValue> : DynamicDataModel, IBonusTag<TValue>
         where TValue : IEquatable<TValue>
     {
         public Bonus(ITag source)
@@ -16,6 +17,8 @@ namespace CharacterBuilder.Tags
             Source = source;
         }
         
+        public string Text { get; set; }
+
         public ITag Source { get; protected set; }
 
         private TValue _bonus;
@@ -31,5 +34,9 @@ namespace CharacterBuilder.Tags
                 }
             }
         }
+
+        public bool IsValid { get { return true; } }
+
+
     }
 }

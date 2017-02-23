@@ -7,8 +7,8 @@
     <ProjectGuid>{9DFB7F50-F722-4392-9E0F-9047032BBDCF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CharacterBuilder.Tags.Contract</RootNamespace>
-    <AssemblyName>CharacterBuilder.Tags.Contract</AssemblyName>
+    <RootNamespace>CharacterBuilder.Data.Contract</RootNamespace>
+    <AssemblyName>CharacterBuilder.Data.Contract</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,15 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBonus.cs" />
-    <Compile Include="IFloatTag.cs" />
-    <Compile Include="IGives.cs" />
-    <Compile Include="IGivesTag.cs" />
-    <Compile Include="IIntTag.cs" />
-    <Compile Include="IStringTag.cs" />
-    <Compile Include="ITag.cs" />
-    <Compile Include="IValueTag.cs" />
+    <Compile Include="ICharacter.cs" />
+    <Compile Include="Scope\IBonusScope.cs" />
+    <Compile Include="Traits\IModifier.cs" />
+    <Compile Include="Scope\IModifierScope.cs" />
+    <Compile Include="Traits\ITrait.cs" />
+    <Compile Include="Scope\ITraitScope.cs" />
+    <Compile Include="Tags\IBonusTag.cs" />
+    <Compile Include="Tags\IFloatTag.cs" />
+    <Compile Include="Tags\IGives.cs" />
+    <Compile Include="Tags\IGivesTag.cs" />
+    <Compile Include="Tags\IIntTag.cs" />
+    <Compile Include="Tags\IStringTag.cs" />
+    <Compile Include="Tags\ITag.cs" />
+    <Compile Include="Tags\IValueTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

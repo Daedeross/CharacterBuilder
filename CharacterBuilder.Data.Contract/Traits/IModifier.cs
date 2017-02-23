@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CharacterBuilder.Tags.Contract
+namespace CharacterBuilder.Data.Contract
 {
-    public interface IGives
+    public interface IModifier: ITrait
     {
-        string Text { get; set; }
+        
     }
 }

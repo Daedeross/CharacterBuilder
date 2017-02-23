@@ -1,4 +1,4 @@
-﻿namespace CharacterBuilder.Tags.Contract
+﻿namespace CharacterBuilder.Data.Contract
 {
     using System;
 
@@ -33,6 +33,6 @@
         /// </summary>
         void ClearBonus();
 
-        bool ApplyBonus(IBonus<TValue> bonus);
+        bool ApplyBonus(IBonusTag<TValue> bonus);
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{8DA6DA27-BFDA-4D04-87D0-7F65AF92832F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CharacterBuilder.Tags</RootNamespace>
-    <AssemblyName>CharacterBuilder.Tags</AssemblyName>
+    <RootNamespace>CharacterBuilder.Data</RootNamespace>
+    <AssemblyName>CharacterBuilder.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,19 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bonus.cs" />
-    <Compile Include="IntTag.cs" />
+    <Compile Include="Tags\BonusTag.cs" />
+    <Compile Include="Tags\IntTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueTag.cs" />
+    <Compile Include="Tags\ValueTag.cs" />
+    <Compile Include="Trait.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CharacterBuilder.Foundation\CharacterBuilder.Foundation.csproj">
       <Project>{c69ea8c5-a7aa-4541-a76b-e766971ff1ff}</Project>
       <Name>CharacterBuilder.Foundation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CharacterBuilder.Tags.Contract\CharacterBuilder.Tags.Contract.csproj">
+    <ProjectReference Include="..\CharacterBuilder.Data.Contract\CharacterBuilder.Data.Contract.csproj">
       <Project>{9dfb7f50-f722-4392-9e0f-9047032bbdcf}</Project>
-      <Name>CharacterBuilder.Tags.Contract</Name>
+      <Name>CharacterBuilder.Data.Contract</Name>
     </ProjectReference>
     <ProjectReference Include="..\CharacterBuilder.Utilities\CharacterBuilder.Utilities.csproj">
       <Project>{452a35a8-391e-42da-b237-f1c5b44e8f29}</Project>

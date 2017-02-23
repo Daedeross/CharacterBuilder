@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace CharacterBuilder.Tags.Contract
+namespace CharacterBuilder.Data.Contract
 {
-    public interface IBonus<TValue>: INotifyPropertyChanged
+    public interface IBonusTag<TValue>: ITag
         where TValue : IEquatable<TValue>
     {
         TValue Value { get; }

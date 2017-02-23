@@ -8,13 +8,14 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using CharacterBuilder.Tags.Contract;
+using CharacterBuilder.Data.Contract;
 
 namespace CharacterBuilder.Utilities
 {
     public static class ExpressionUtilities
     {
-        public static Dictionary<INotifyPropertyChanged, HashSet<string>> FindMembers<TScope, TResult>(Expression<Func<TScope, TResult>> ex, TScope scope)
+        public static Dictionary<INotifyPropertyChanged, HashSet<string>> FindMembers<TScope>(Expression ex, TScope scope)
+            where TScope : INotifyPropertyChanged
         {
             var set = FindMembersTraverse(ex, scope);
             var dict = new Dictionary<INotifyPropertyChanged, HashSet<string>>();
@@ -34,6 +35,7 @@ namespace CharacterBuilder.Utilities
 
         private static HashSet<(INotifyPropertyChanged sender, string property)> FindMembersTraverse<TScope>(
             Expression ex, TScope scope)
+            where TScope : INotifyPropertyChanged
         {
 
             if (ex is MemberExpression)
@@ -129,6 +131,7 @@ namespace CharacterBuilder.Utilities
         }
 
         static INotifyPropertyChanged EvaluateContainer<TScope>(Expression ex, TScope scope)
+            where TScope : INotifyPropertyChanged
         {
             var scopeParam = GetParameterExpression(ex);
             try
@@ -147,6 +150,7 @@ namespace CharacterBuilder.Utilities
         }
 
         static object EvaluateMember<TScope>(Expression ex, TScope scope)
+            where TScope : INotifyPropertyChanged
         {
             var scopeParam = GetParameterExpression(ex);
             try

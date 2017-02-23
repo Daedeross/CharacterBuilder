@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CharacterBuilder.Tags.Contract
+namespace CharacterBuilder.Data
 {
-    public interface IGivesTag
+    public class Trait
     {
+
     }
 }

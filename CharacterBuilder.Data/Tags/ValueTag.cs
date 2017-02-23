@@ -1,16 +1,17 @@
-﻿namespace CharacterBuilder.Tags
+﻿namespace CharacterBuilder.Data
 {
     using System;
     using System.ComponentModel;
-    using CharacterBuilder.Tags.Contract;
+    using CharacterBuilder.Data.Contract;
     using CharacterBuilder.Foundation;
     using CharacterBuilder.Utilities;
     using System.Collections.Generic;
     using ExpressionEvaluator;
     using System.Linq.Expressions;
 
-    public abstract class ValueTag<TValue, TScope> : NotificationObject, IValueTag<TValue>
+    public abstract class ValueTag<TValue, TScope> : DynamicDataModel, IValueTag<TValue>
         where TValue : IEquatable<TValue>
+        where TScope : INotifyPropertyChanged
     {
         protected TScope scope;
         protected string currenntText;
@@ -62,7 +63,7 @@
 
         public abstract TValue FinalValue { get; }
 
-        public abstract bool ApplyBonus(IBonus<TValue> bonus);
+        public abstract bool ApplyBonus(IBonusTag<TValue> bonus);
 
         public abstract void ClearBonus();
 
@@ -72,7 +73,8 @@
             {
                 CompiledExpression<TValue> ce = new CompiledExpression<TValue>(expr);
                 var del = ce.ScopeCompile<TScope>();
-                var ex = ce.Expression as Expression<Func<TScope, TValue>>;
+                //var ex = ce.Expression as Expression<Func<TScope, TValue>>;
+                var ex = ce.Expression;
                 var set = ExpressionUtilities.FindMembers(ex, scope);
                 var val = del(scope);
                 var oldVal = cachedValue;
@@ -133,6 +135,106 @@
             }
         }
 
+        #endregion
+        #region Implicit Conversion Methods
+
+        public static implicit operator bool(ValueTag<TValue, TScope> t)
+        {
+            bool result;
+            try
+            {
+                result = Convert.ToBoolean(t.FinalValue);
+            }
+            catch (InvalidCastException)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        public static implicit operator short(ValueTag<TValue, TScope> t)
+        {
+            short result;
+            try
+            {
+                result = Convert.ToInt16(t.FinalValue);
+            }
+            catch (InvalidCastException)
+            {
+                result = 0;
+            }
+            return result;
+        }
+
+        public static implicit operator int(ValueTag<TValue, TScope> t)
+        {
+            int result;
+            try
+            {
+                result = Convert.ToInt32(t.FinalValue);
+            }
+            catch (InvalidCastException)
+            {
+                result = 0;
+            }
+            return result;
+        }
+
+        public static implicit operator long(ValueTag<TValue, TScope> t)
+        {
+            long result;
+            try
+            {
+                result = Convert.ToInt64(t.FinalValue);
+            }
+            catch (InvalidCastException)
+            {
+                result = 0;
+            }
+            return result;
+        }
+
+        public static implicit operator float(ValueTag<TValue, TScope> t)
+        {
+            float result;
+            try
+            {
+                result = Convert.ToSingle(t.FinalValue);
+            }
+            catch (InvalidCastException)
+            {
+                result = 0;
+            }
+            return result;
+        }
+
+        public static implicit operator double(ValueTag<TValue, TScope> t)
+        {
+            double result;
+            try
+            {
+                result = Convert.ToDouble(t.FinalValue);
+            }
+            catch (InvalidCastException)
+            {
+                result = 0;
+            }
+            return result;
+        }
+
+        public static implicit operator decimal(ValueTag<TValue, TScope> t)
+        {
+            decimal result;
+            try
+            {
+                result = Convert.ToDecimal(t.FinalValue);
+            }
+            catch (InvalidCastException)
+            {
+                result = 0;
+            }
+            return result;
+        }
         #endregion
     }
 }

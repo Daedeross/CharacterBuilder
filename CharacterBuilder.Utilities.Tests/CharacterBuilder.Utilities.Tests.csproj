@@ -75,13 +75,13 @@
       <Project>{c69ea8c5-a7aa-4541-a76b-e766971ff1ff}</Project>
       <Name>CharacterBuilder.Foundation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CharacterBuilder.Tags.Contract\CharacterBuilder.Tags.Contract.csproj">
+    <ProjectReference Include="..\CharacterBuilder.Data.Contract\CharacterBuilder.Data.Contract.csproj">
       <Project>{9dfb7f50-f722-4392-9e0f-9047032bbdcf}</Project>
-      <Name>CharacterBuilder.Tags.Contract</Name>
+      <Name>CharacterBuilder.Data.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CharacterBuilder.Tags\CharacterBuilder.Tags.csproj">
+    <ProjectReference Include="..\CharacterBuilder.Data\CharacterBuilder.Data.csproj">
       <Project>{8da6da27-bfda-4d04-87d0-7f65af92832f}</Project>
-      <Name>CharacterBuilder.Tags</Name>
+      <Name>CharacterBuilder.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\CharacterBuilder.Utilities\CharacterBuilder.Utilities.csproj">
       <Project>{452a35a8-391e-42da-b237-f1c5b44e8f29}</Project>

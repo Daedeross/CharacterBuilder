@@ -1,4 +1,4 @@
-﻿namespace CharacterBuilder.Tags.Contract
+﻿namespace CharacterBuilder.Data.Contract
 {
     using System.ComponentModel;
 

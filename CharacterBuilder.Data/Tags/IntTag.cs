@@ -1,32 +1,36 @@
-﻿using CharacterBuilder.Tags.Contract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CharacterBuilder.Tags
+﻿namespace CharacterBuilder.Data
 {
+    using CharacterBuilder.Data.Contract;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class IntTag<TScope> : ValueTag<int, TScope>, IIntTag
+        where TScope : INotifyPropertyChanged
     {
         public override int DefaultValue { get { return 0; } }
 
+        protected int bonusValue;
         public override int FinalValue
         {
             get
             {
-                return Value;
+                return Value + bonusValue;
             }
         }
 
-        public override bool ApplyBonus(IBonus<int> bonus)
+        public override bool ApplyBonus(IBonusTag<int> bonus)
         {
-            throw new NotImplementedException();
+            bonusValue += bonus.Value;
+            return true;
         }
 
         public override void ClearBonus()
         {
-            throw new NotImplementedException();
+            bonusValue = 0;
         }
 
         public IntTag(TScope scope)

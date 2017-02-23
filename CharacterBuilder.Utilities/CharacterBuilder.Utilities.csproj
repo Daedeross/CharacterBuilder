@@ -50,9 +50,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CharacterBuilder.Tags.Contract\CharacterBuilder.Tags.Contract.csproj">
+    <ProjectReference Include="..\CharacterBuilder.Data.Contract\CharacterBuilder.Data.Contract.csproj">
       <Project>{9dfb7f50-f722-4392-9e0f-9047032bbdcf}</Project>
-      <Name>CharacterBuilder.Tags.Contract</Name>
+      <Name>CharacterBuilder.Data.Contract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
