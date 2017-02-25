@@ -11,40 +11,76 @@
 
     public class ExpressionTests
     {
+        private static int v1 = 3;
+        private static int v2 = 11;
+
         public class TestScope: DynamicDataModel
         {
-            public dynamic itag1;
-            public dynamic itag2;
+            private dynamic _tagi1;
+            public dynamic TagI1
+            {
+                get { return _tagi1; }
+                set
+                {
+                    if (_tagi1 != value)
+                    {
+                        _tagi1 = value;
+                        RaisePropertyChanged(nameof(TagI1));
+                    }
+                }
+            }
+            private dynamic _tagi2;
+            public dynamic TagI2
+            {
+                get { return _tagi2; }
+                set
+                {
+                    if (_tagi2 != value)
+                    {
+                        _tagi2 = value;
+                        RaisePropertyChanged(nameof(TagI2));
+                    }
+                }
+            }
+
+            private dynamic _tagf1;
+            public dynamic TagF1
+            {
+                get { return _tagf1; }
+                set
+                {
+                    if (_tagf1 != value)
+                    {
+                        _tagf1 = value;
+                        RaisePropertyChanged(nameof(TagF1));
+                    }
+                }
+            }
+
 
             public TestScope()
             {
-                itag1 = new IntTag<TestScope>(this);
-                itag1.Text = "1";
-                itag2 = new IntTag<TestScope>(this);
-                itag2.Text = "3";
+                _tagi1 = new IntTag<TestScope>(this) { Text = v1.ToString() };
+                _tagi2 = new IntTag<TestScope>(this) { Text = v2.ToString() };
+                //_tagf1 = new FloatTag
             }
         }
 
         [Fact]
         public void TestIntTagDiscovery()
         {
-            string exText = "itag1 + itag2.FinalValue";
+            string exText = "TagI1 + TagI2.FinalValue";
 
             var scope = new TestScope();
-            var x = scope.itag1.FinalValue;
 
             var ce = new CompiledExpression<int>(exText);
             var del = ce.ScopeCompile<TestScope>();
             var r = del(scope);
 
-            //var lam = Expression.Lambda<Func<TestScope, int>>(Expression.Constant(1), Expression.Parameter(typeof(TestScope), "scope"));
-
-            //var ex = ce.Expression as Expression<Func<TestScope, int>>;
-
             var result = ExpressionUtilities.FindMembers(ce.Expression, scope);
 
-            var key1 = scope.itag1 as INotifyPropertyChanged;
-            var key2 = scope.itag2 as INotifyPropertyChanged;
+            var key1 = scope.TagI1 as INotifyPropertyChanged;
+            var key2 = scope.TagI2 as INotifyPropertyChanged;
             var result1 = result[key1];
             var result2 = result[key2];
 
@@ -52,6 +88,43 @@
             Assert.True(result.ContainsKey(key2), "tag2 not found");
             Assert.True(result[key1].Contains("Value"));
             Assert.True(result[key2].Contains("FinalValue"));
+        }
+
+        [Fact]
+        public void TestIntTagMath()
+        {
+            string exAddText = "TagI1 + TagI2";
+            string exSubText = "TagI1 - TagI2";
+            string exMulText = "TagI1 * TagI2";
+            string exDivText = "TagI1 / TagI2";
+
+            var scope = new TestScope();
+
+            var ce = new CompiledExpression<int>(exAddText);
+            var del = ce.ScopeCompile<TestScope>();
+            var r = del(scope);
+            Assert.Equal(v1 + v2, r);
+
+            ce = new CompiledExpression<int>(exSubText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 - v2, r);
+
+            ce = new CompiledExpression<int>(exMulText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 * v2, r);
+
+            ce = new CompiledExpression<int>(exDivText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 / v2, r);
+        }
+
+        [Fact]
+        public void TestDivideIntTags()
+        {
+
         }
     }
 }
