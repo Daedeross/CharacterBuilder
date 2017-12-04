@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel;
-    using CharacterBuilder.Data.Contract;
     using CharacterBuilder.Foundation;
     using CharacterBuilder.Utilities;
     using System.Collections.Generic;
@@ -22,6 +21,8 @@
 
         protected bool isValid;
         protected bool pending;
+
+        public int Id { get; set; }
 
         public abstract TValue DefaultValue { get; }
 

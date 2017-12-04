@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CharacterBuilder.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -8,7 +9,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using CharacterBuilder.Data.Contract;
 
 namespace CharacterBuilder.Utilities
 {
@@ -47,7 +47,7 @@ namespace CharacterBuilder.Utilities
                 if (me.Member.MemberType == MemberTypes.Property)
                 {
                     var pi = me.Member as PropertyInfo;
-                    if (typeof(IIntTag).IsAssignableFrom(pi.PropertyType))
+                    if (typeof(IFloatTag).IsAssignableFrom(pi.PropertyType))
                     {
                         var outerContainer = EvaluateContainer(me.Expression, scope);
                         container = pi.GetValue(outerContainer) as INotifyPropertyChanged;
@@ -93,9 +93,8 @@ namespace CharacterBuilder.Utilities
 
                     object result = EvaluateMember(ex, scope);
 
-                    if (   typeof(IIntTag).IsAssignableFrom(result.GetType()) 
-                        || typeof(IFloatTag).IsAssignableFrom(result.GetType())
-                        || typeof(IStringTag).IsAssignableFrom(result.GetType()))
+                    if (typeof(IFloatTag).IsAssignableFrom(result.GetType())
+                     || typeof(IStringTag).IsAssignableFrom(result.GetType()))
                     {
                         var outerContainer = EvaluateContainer(de.Arguments[0], scope);
                         container = (INotifyPropertyChanged)result;

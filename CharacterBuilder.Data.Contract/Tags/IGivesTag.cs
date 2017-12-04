@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CharacterBuilder.Data.Contract
+namespace CharacterBuilder.Data
 {
-    public interface IGivesTag
+    public interface IGivesTag: ITag
     {
+        string TargetName { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CharacterBuilder.Data.Contract
+﻿namespace CharacterBuilder.Data
 {
     using System;
 

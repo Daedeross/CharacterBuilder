@@ -3,16 +3,19 @@
     using System.ComponentModel;
     using System.Dynamic;
 
-    public class DynamicDataModel : DynamicObject, INotifyPropertyChanged
+    public abstract class DynamicDataModel : DynamicObject, INotifyPropertyChanged
     {
-        protected string mName = "";
+        protected string _name = "";
         public virtual string Name
         {
-            get { return mName; }
+            get { return _name; }
             set
             {
-                mName = value;
-                RaisePropertyChanged("Name");
+                if (!Equals(_name, value))
+                {
+                    _name = value;
+                    RaisePropertyChanged(nameof(Name));
+                }
             }
         }
 

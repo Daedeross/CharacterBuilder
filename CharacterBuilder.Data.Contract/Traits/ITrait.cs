@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CharacterBuilder.Data.Contract
+namespace CharacterBuilder.Data
 {
     public interface ITrait
     {
@@ -12,6 +12,6 @@ namespace CharacterBuilder.Data.Contract
 
         IDictionary<string, IModifier> Mods { get; }
 
-        IDictionary<string, ITag> Tags { get; set; }
+        IDictionary<string, ITag> Tags { get; }
     }
 }

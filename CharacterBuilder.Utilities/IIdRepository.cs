@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CharacterBuilder.Data
+namespace CharacterBuilder.Utilities
 {
-    public class Trait
+    public interface IIdRepository
     {
+        int RegisterId(int id);
 
+        int GetNewId();
     }
 }

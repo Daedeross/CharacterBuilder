@@ -2,17 +2,17 @@
 {
     using CharacterBuilder.Foundation;
     using CharacterBuilder.Data;
-    using CharacterBuilder.Data.Contract;
     using ExpressionEvaluator;
     using System;
     using System.ComponentModel;
+    using System.Dynamic;
     using System.Linq.Expressions;
     using Xunit;
 
     public class ExpressionTests
     {
-        private static int v1 = 3;
-        private static int v2 = 11;
+        private static double v1 = 3;
+        private static double v2 = 11;
 
         public class TestScope: DynamicDataModel
         {
@@ -57,12 +57,26 @@
                 }
             }
 
+            private dynamic _tagf2;
+            public dynamic TagF2
+            {
+                get { return _tagf2; }
+                set
+                {
+                    if (_tagf2 != value)
+                    {
+                        _tagf2 = value;
+                        RaisePropertyChanged(nameof(TagF2));
+                    }
+                }
+            }
 
             public TestScope()
             {
-                _tagi1 = new IntTag<TestScope>(this) { Text = v1.ToString() };
-                _tagi2 = new IntTag<TestScope>(this) { Text = v2.ToString() };
-                //_tagf1 = new FloatTag
+                _tagf1 = new FloatTag<TestScope>(this) { Text = v1.ToString() };
+                _tagf2 = new FloatTag<TestScope>(this) { Text = v2.ToString() };
+                _tagi1 = new FloatTag<TestScope>(this) { Text = v1.ToString(), Truncate = true };
+                _tagi2 = new FloatTag<TestScope>(this) { Text = v2.ToString(), Truncate = true };
             }
         }
 
@@ -73,7 +87,7 @@
 
             var scope = new TestScope();
 
-            var ce = new CompiledExpression<int>(exText);
+            var ce = new CompiledExpression<double>(exText);
             var del = ce.ScopeCompile<TestScope>();
             var r = del(scope);
 
@@ -100,31 +114,118 @@
 
             var scope = new TestScope();
 
-            var ce = new CompiledExpression<int>(exAddText);
+            var ce = new CompiledExpression<double>(exAddText);
             var del = ce.ScopeCompile<TestScope>();
-            var r = del(scope);
+            var r = (double)del(scope);
             Assert.Equal(v1 + v2, r);
 
-            ce = new CompiledExpression<int>(exSubText);
+            ce = new CompiledExpression<double>(exSubText);
             del = ce.ScopeCompile<TestScope>();
             r = del(scope);
             Assert.Equal(v1 - v2, r);
 
-            ce = new CompiledExpression<int>(exMulText);
+            ce = new CompiledExpression<double>(exMulText);
             del = ce.ScopeCompile<TestScope>();
             r = del(scope);
             Assert.Equal(v1 * v2, r);
 
-            ce = new CompiledExpression<int>(exDivText);
+            ce = new CompiledExpression<double>(exDivText);
             del = ce.ScopeCompile<TestScope>();
             r = del(scope);
             Assert.Equal(v1 / v2, r);
         }
 
         [Fact]
-        public void TestDivideIntTags()
+        public void TestFloatTagMath()
         {
+            string exAddText = "TagF1 + TagF2";
+            string exSubText = "TagF1 - TagI2";
+            string exMulText = "TagF1 * TagF2";
+            string exDivText = "TagF1 / TagF2";
 
+            var scope = new TestScope();
+
+            var ce = new CompiledExpression<double>(exAddText);
+            var del = ce.ScopeCompile<TestScope>();
+            var r = del(scope);
+            Assert.Equal(v1 + v2, r);
+
+            ce = new CompiledExpression<double>(exSubText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 - v2, r);
+
+            ce = new CompiledExpression<double>(exMulText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 * v2, r);
+
+            ce = new CompiledExpression<double>(exDivText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 / v2, r);
+        }
+
+        [Fact]
+        public void TestIntFloatTagMath()
+        {
+            string exAddText = "TagI1 + TagF2";
+            string exSubText = "TagI1 - TagF2";
+            string exMulText = "TagI1 * TagF2";
+            string exDivText = "TagI1 / TagF2";
+
+            var scope = new TestScope();
+
+            var ce = new CompiledExpression<double>(exAddText);
+            var del = ce.ScopeCompile<TestScope>();
+            var r = del(scope);
+            Assert.Equal(v1 + v2, r);
+
+            ce = new CompiledExpression<double>(exSubText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 - v2, r);
+
+            ce = new CompiledExpression<double>(exMulText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 * v2, r);
+
+            ce = new CompiledExpression<double>(exDivText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 / v2, r);
+        }
+
+        [Fact]
+        public void TestFloatIntTagMath()
+        {
+            string exAddText = "TagF1 + TagI2";
+            string exSubText = "TagF1 - TagI2";
+            string exMulText = "TagF1 * TagI2";
+            string exDivText = "TagF1 / TagI2";
+
+            var scope = new TestScope();
+
+            var ce = new CompiledExpression<double>(exAddText);
+            var del = ce.ScopeCompile<TestScope>();
+            var r = del(scope);
+            Assert.Equal(v1 + v2, r);
+
+            ce = new CompiledExpression<double>(exSubText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 - v2, r);
+
+            ce = new CompiledExpression<double>(exMulText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 * v2, r);
+
+            ce = new CompiledExpression<double>(exDivText);
+            del = ce.ScopeCompile<TestScope>();
+            r = del(scope);
+            Assert.Equal(v1 / v2, r);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CharacterBuilder.Foundation;
-using CharacterBuilder.Data.Contract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +16,8 @@ namespace CharacterBuilder.Data
             Source = source;
         }
         
+        public int Id { get; }
+
         public string Text { get; set; }
 
         public ITag Source { get; protected set; }
@@ -36,7 +37,5 @@ namespace CharacterBuilder.Data
         }
 
         public bool IsValid { get { return true; } }
-
-
     }
 }

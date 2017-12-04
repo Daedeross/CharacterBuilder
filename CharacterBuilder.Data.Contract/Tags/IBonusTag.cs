@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace CharacterBuilder.Data.Contract
+namespace CharacterBuilder.Data
 {
     public interface IBonusTag<TValue>: ITag
         where TValue : IEquatable<TValue>

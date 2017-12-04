@@ -7,7 +7,7 @@
     <ProjectGuid>{9DFB7F50-F722-4392-9E0F-9047032BBDCF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CharacterBuilder.Data.Contract</RootNamespace>
+    <RootNamespace>CharacterBuilder.Data</RootNamespace>
     <AssemblyName>CharacterBuilder.Data.Contract</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -50,7 +50,6 @@
     <Compile Include="Tags\IFloatTag.cs" />
     <Compile Include="Tags\IGives.cs" />
     <Compile Include="Tags\IGivesTag.cs" />
-    <Compile Include="Tags\IIntTag.cs" />
     <Compile Include="Tags\IStringTag.cs" />
     <Compile Include="Tags\ITag.cs" />
     <Compile Include="Tags\IValueTag.cs" />
