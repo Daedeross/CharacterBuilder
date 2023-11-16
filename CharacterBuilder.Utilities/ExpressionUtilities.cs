@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Dynamic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterBuilder.Utilities
 {
@@ -38,15 +35,14 @@ namespace CharacterBuilder.Utilities
             where TScope : INotifyPropertyChanged
         {
 
-            if (ex is MemberExpression)
+            if (ex is MemberExpression me)
             {
-                var me = ex as MemberExpression;
-                string memberName = null;
-                INotifyPropertyChanged container = null;
+                string? memberName = null;
+                INotifyPropertyChanged? container = null;
 
                 if (me.Member.MemberType == MemberTypes.Property)
                 {
-                    var pi = me.Member as PropertyInfo;
+                    var pi = (PropertyInfo)me.Member;
                     if (typeof(IFloatTag).IsAssignableFrom(pi.PropertyType))
                     {
                         var outerContainer = EvaluateContainer(me.Expression, scope);
@@ -76,19 +72,17 @@ namespace CharacterBuilder.Utilities
                 left.UnionWith(right);
                 return left;
             }
-            else if (ex is UnaryExpression)
+            else if (ex is UnaryExpression ue)
             {
-                var ue = ex as UnaryExpression;
                 return FindMembersTraverse(ue.Operand, scope);
             }
-            else if (ex is DynamicExpression)
+            else if (ex is DynamicExpression de)
             {
-                var de = ex as DynamicExpression;
 
                 if (typeof(GetMemberBinder).IsAssignableFrom(de.Binder.GetType()))
                 {
-                    var binder = de.Binder as GetMemberBinder;
-                    string memberName = null;
+                    var binder = (GetMemberBinder)de.Binder;
+                    string? memberName = null;
                     INotifyPropertyChanged container = null;
 
                     object result = EvaluateMember(ex, scope);

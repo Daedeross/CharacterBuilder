@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CharacterBuilder.Foundation;
 
 namespace CharacterBuilder.Data
 {
-    public interface ICharacter
+    public interface ICharacter : ICategorizedTraitContainer, INamedItem
     {
-        string Name { get; }
-        
-        Dictionary<string, ITrait> Attributes { get; }
-        Dictionary<string, ITrait> Advantages { get; }
-        Dictionary<string, ITrait> Disadvantages { get; }
-        Dictionary<string, ITrait> Skills { get; }
-        Dictionary<string, ITrait> Gear { get; }
+        new string Name { get; set; }
     }
 }

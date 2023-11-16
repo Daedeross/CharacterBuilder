@@ -5,22 +5,21 @@
     using CharacterBuilder.Foundation;
     using CharacterBuilder.Utilities;
     using System.Collections.Generic;
-    using ExpressionEvaluator;
     using System.Linq.Expressions;
 
     public abstract class ValueTag<TValue, TScope> : DynamicDataModel, IValueTag<TValue>
         where TValue : IEquatable<TValue>
         where TScope : INotifyPropertyChanged
     {
-        protected TScope scope;
-        protected string currenntText;
-        protected string lastValidText;
-        protected CompiledExpression<TValue> valueExpression;
-        protected Func<TScope, TValue> valueDelegate;
-        protected TValue cachedValue;
+        protected TScope _scope;
+        protected string _currentText;
+        protected string _lastValidText;
+        //protected CompiledExpression<TValue> valueExpression;
+        protected Func<TScope, TValue> _valueDelegate;
+        protected TValue _cachedValue;
 
-        protected bool isValid;
-        protected bool pending;
+        protected bool _isValid;
+        protected bool _pending;
 
         public int Id { get; set; }
 
@@ -32,12 +31,12 @@
 
         public string Text
         {
-            get { return currenntText; }
+            get { return _currentText; }
             set
             {
-                if (CompileExpression(value))
+                if (true) //(CompileExpression(value))
                 {
-                    lastValidText = value;
+                    _lastValidText = value;
                 }
             }
         }
@@ -46,19 +45,19 @@
         {
             get
             {
-                if (pending)
+                if (_pending)
                 {
                     try
                     {
-                        TValue val = valueDelegate(scope);
-                        cachedValue = val;
+                        TValue val = _valueDelegate(_scope);
+                        _cachedValue = val;
                     }
                     catch
                     {
-                        cachedValue = DefaultValue;
+                        _cachedValue = DefaultValue;
                     }
                 }
-                return cachedValue;
+                return _cachedValue;
             }
         }
 
@@ -68,36 +67,36 @@
 
         public abstract void ClearBonus();
 
-        protected bool CompileExpression(string expr)
-        {
-            try
-            {
-                CompiledExpression<TValue> ce = new CompiledExpression<TValue>(expr);
-                var del = ce.ScopeCompile<TScope>();
-                //var ex = ce.Expression as Expression<Func<TScope, TValue>>;
-                var ex = ce.Expression;
-                var set = ExpressionUtilities.FindMembers(ex, scope);
-                var val = del(scope);
-                var oldVal = cachedValue;
+        //protected bool CompileExpression(string expr)
+        //{
+        //    try
+        //    {
+        //        CompiledExpression<TValue> ce = new CompiledExpression<TValue>(expr);
+        //        var del = ce.ScopeCompile<TScope>();
+        //        //var ex = ce.Expression as Expression<Func<TScope, TValue>>;
+        //        var ex = ce.Expression;
+        //        var set = ExpressionUtilities.FindMembers(ex, scope);
+        //        var val = del(scope);
+        //        var oldVal = cachedValue;
 
-                // If we get to this point, everything worked so we can assign the vars
-                valueDelegate = del;
-                valueExpression = ce;
-                cachedValue = val;
-                pending = false;
-                SetWatchedSubscriptions(set);
-                if (!oldVal.Equals(cachedValue))
-                {
-                    RaisePropertyChanged(nameof(Value));
-                }
-                return true;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e);
-                return false;
-            }
-        }
+        //        // If we get to this point, everything worked so we can assign the vars
+        //        valueDelegate = del;
+        //        valueExpression = ce;
+        //        cachedValue = val;
+        //        pending = false;
+        //        SetWatchedSubscriptions(set);
+        //        if (!oldVal.Equals(cachedValue))
+        //        {
+        //            RaisePropertyChanged(nameof(Value));
+        //        }
+        //        return true;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine(e);
+        //        return false;
+        //    }
+        //}
 
         #region Watching
 
@@ -110,8 +109,8 @@
             {
                 if (set.Contains(e.PropertyName))
                 {
-                    pending = true;
-                    var oldVal = cachedValue;
+                    _pending = true;
+                    var oldVal = _cachedValue;
                     if (!oldVal.Equals(Value))
                     {
                         RaisePropertyChanged(nameof(Value));

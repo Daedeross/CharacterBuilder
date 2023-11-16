@@ -1,20 +1,15 @@
 ﻿using CharacterBuilder.Foundation;
-using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CharacterBuilder.Data
 {
     public abstract class TraitBase : DynamicDataModel, ITrait
     {
-        private IDictionary<string, IModifier> _mods = new Dictionary<string, IModifier>();
+        private readonly IDictionary<string, IModifier> _mods = new ConcurrentDictionary<string, IModifier>();
         public IDictionary<string, IModifier> Mods => _mods;
 
-        private IDictionary<string, ITag> _tags = new Dictionary<string, ITag>();
+        private readonly IDictionary<string, ITag> _tags = new ConcurrentDictionary<string, ITag>();
         public IDictionary<string, ITag> Tags => _tags;
-
-        
     }
 }

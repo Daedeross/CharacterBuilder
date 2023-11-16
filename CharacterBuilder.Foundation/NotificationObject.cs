@@ -4,7 +4,7 @@ namespace CharacterBuilder.Foundation
 {
     public class NotificationObject : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void RaisePropertyChanged(string propName)
         {

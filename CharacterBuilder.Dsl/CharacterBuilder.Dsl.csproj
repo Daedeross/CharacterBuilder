@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
+    <PackageReference Include="Antlr4BuildTasks" Version="12.4.0" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>3021;1701;1702</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Antlr4 Include="CharacterBuilder.g4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CharacterBuilder.Data.Contract\CharacterBuilder.Data.Contract.csproj" />
+    <ProjectReference Include="..\CharacterBuilder.Dsl.Contract\CharacterBuilder.Dsl.Contract.csproj" />
+    <ProjectReference Include="..\CharacterBuilder.Foundation\CharacterBuilder.Foundation.csproj" />
+  </ItemGroup>
+
+</Project>

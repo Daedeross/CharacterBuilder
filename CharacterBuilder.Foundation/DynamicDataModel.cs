@@ -31,7 +31,7 @@
             PropertyChanged?.Invoke(this, e);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         #endregion
     }

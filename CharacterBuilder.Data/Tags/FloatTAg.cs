@@ -52,7 +52,7 @@
 
         public FloatTag(TScope scope)
         {
-            this.scope = scope;
+            this._scope = scope;
         }
 
         #region Opperator Overloads

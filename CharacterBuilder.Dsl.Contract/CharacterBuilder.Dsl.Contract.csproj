@@ -1,11 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <RootNamespace>CharacterBuilder.Data</RootNamespace>
+    <RootNamespace>CharacterBuilder.Dsl</RootNamespace>
   </PropertyGroup>
+
   <ItemGroup>
+    <ProjectReference Include="..\CharacterBuilder.Data.Contract\CharacterBuilder.Data.Contract.csproj" />
     <ProjectReference Include="..\CharacterBuilder.Foundation.Contract\CharacterBuilder.Foundation.Contract.csproj" />
   </ItemGroup>
+
 </Project>
